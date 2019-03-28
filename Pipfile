@@ -10,7 +10,7 @@ pytest = "*"
 flask = "*"
 requests = "*"
 pytest-flask = "*"
-flaskr = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
