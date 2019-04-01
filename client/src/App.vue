@@ -62,7 +62,7 @@ export default {
           return response.json();
         })
         .then(response => {
-          this.chain = response["chain"];
+          this.chain = response["chain"].reverse();
         })
         .catch(err => console.log(err));
     }

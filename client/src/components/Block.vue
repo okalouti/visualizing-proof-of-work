@@ -48,7 +48,7 @@ export default {
                   transaction.recipient
                 }`
             )
-            .slice(0, this.transactions.length - 1)
+            .slice(0, this.transactions.length)
             .join(", ")
         }
       ]

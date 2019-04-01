@@ -1,5 +1,5 @@
 <template>
-  <v-form>
+  <v-form ref="form">
     <v-container>
       <v-layout column wrap>
         <v-flex xs12 sm6>
@@ -46,6 +46,7 @@ export default {
           recipient: receiver
         })
         .then(() => {
+          this.$refs.form.reset();
           this.updatePendingTransactions();
         })
         .catch(function(error) {
