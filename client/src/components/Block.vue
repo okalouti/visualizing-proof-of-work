@@ -29,7 +29,7 @@ export default {
       desserts: [
         {
           name: "Timestamp",
-          value: moment.unix(this.timestamp).format("YYYY-MM-DD HH:mm:ss")
+          value: moment().format("YYYY-MM-DD HH:mm:ss")
         },
         {
           name: "Previous Hash",
@@ -48,7 +48,7 @@ export default {
                   transaction.recipient
                 }`
             )
-            .slice(0, this.transactions.length - 1)
+            .slice(0, this.transactions.length)
             .join(", ")
         }
       ]

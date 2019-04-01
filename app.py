@@ -38,7 +38,6 @@ class Blockchain(object):
     @staticmethod
     def hash(block):
         block_string = json.dumps(block, sort_keys=True).encode()
-        print(block_string)
         return hashlib.sha256(block_string).hexdigest()
 
     @property
@@ -97,7 +96,6 @@ def new_transaction():
 def mine():
     # We run the proof of work algorithm to get the next proof...
     last_block = blockchain.last_block
-    last_proof = last_block['proof']
     proof = blockchain.proof_of_work()
 
     # We must receive a reward for finding the proof.
@@ -119,8 +117,6 @@ def mine():
         'proof': block['proof'],
         'previous_hash': block['previous_hash'],
     }
-    print("=== last block here")
-    print(last_block)
     return jsonify(response), 200
 
 @app.route('/transactions', methods =['GET'])

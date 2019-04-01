@@ -16,22 +16,9 @@ import Block from "./Block.vue";
 
 export default {
   name: "Chain",
-  data: () => ({
-    chain: []
-  }),
+  props: ["chain"],
   components: {
     Block
-  },
-  // eslint-disable-next-line
-  mounted() {
-    fetch("/chain")
-      .then(response => {
-        return response.json();
-      })
-      .then(response => {
-        this.chain = response["chain"];
-      })
-      .catch(err => console.log(err));
   }
 };
 </script>

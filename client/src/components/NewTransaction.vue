@@ -1,5 +1,5 @@
 <template>
-  <v-form>
+  <v-form ref="form">
     <v-container>
       <v-layout column wrap>
         <v-flex xs12 sm6>
@@ -28,8 +28,16 @@
 import axios from "axios";
 export default {
   name: "New Transaction",
-  data: () => ({}),
   methods: {
+    mine() {
+      this.toggleLoading();
+      fetch("/mine")
+        .then(() => {
+          this.updateChain();
+          this.updatePendingTransactions();
+        })
+        .then(() => this.toggleLoading());
+    },
     submit(sender, receiver, amount) {
       return axios
         .post("/transactions/new", {
@@ -37,15 +45,22 @@ export default {
           sender: sender,
           recipient: receiver
         })
-        .then(function(response) {
-          console.log(response);
+        .then(() => {
+          this.$refs.form.reset();
+          this.updatePendingTransactions();
         })
         .catch(function(error) {
           console.log(error);
         });
     },
-    mine() {
-      fetch("/mine");
+    toggleLoading() {
+      this.$emit("toggle-loading");
+    },
+    updateChain() {
+      this.$emit("update-chain");
+    },
+    updatePendingTransactions() {
+      this.$emit("update-pending");
     }
   }
 };

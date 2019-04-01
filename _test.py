@@ -15,7 +15,7 @@ def client(request):
     test_client = app.test_client()
 
     def teardown():
-        pass # databases and resourses have to be freed at the end. But so far we don't have anything
+        pass
 
     request.addfinalizer(teardown)
     return test_client

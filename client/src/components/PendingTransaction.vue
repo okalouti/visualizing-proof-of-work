@@ -1,6 +1,11 @@
 <template>
   <div class="table">
-    <v-data-table :headers="headers" :items="items" class="elevation-1 mt-2" hide-actions="true">
+    <v-data-table
+      :headers="headers"
+      :items="pendingTransactions"
+      class="elevation-1 mt-2"
+      hide-actions="true"
+    >
       <template slot="items" slot-scope="props">
         <td>{{ props.item.sender }}</td>
         <td>{{ props.item.recipient }}</td>
@@ -15,7 +20,7 @@ import axios from "axios";
 
 export default {
   name: "PendingTransaction",
-  props: ["sender", "recipient", "amount"],
+  props: ["sender", "recipient", "amount", "pendingTransactions"],
   data() {
     return {
       currentTransactions: [],
@@ -38,12 +43,6 @@ export default {
       ],
       items: []
     };
-  },
-  mounted() {
-    axios.get("/transactions").then(response => {
-      console.log(response);
-      this.items = response.data;
-    });
   }
 };
 </script>
