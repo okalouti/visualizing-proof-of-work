@@ -30,6 +30,9 @@ export default {
   name: "New Transaction",
   data: () => ({}),
   methods: {
+    updatePendingTransactions() {
+      this.$emit("update-pending");
+    },
     submit(sender, receiver, amount) {
       return axios
         .post("/transactions/new", {
@@ -37,15 +40,15 @@ export default {
           sender: sender,
           recipient: receiver
         })
-        .then(function(response) {
-          console.log(response);
+        .then(() => {
+          this.updatePendingTransactions();
         })
         .catch(function(error) {
           console.log(error);
         });
     },
     mine() {
-      fetch("/mine");
+      fetch("/mine").then(() => console.log("PROOF OF WORK DONE!"));
     }
   }
 };
