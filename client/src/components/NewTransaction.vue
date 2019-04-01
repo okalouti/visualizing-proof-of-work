@@ -28,14 +28,15 @@
 import axios from "axios";
 export default {
   name: "New Transaction",
-  data: () => ({}),
   methods: {
-    updatePendingTransactions() {
-      this.$emit("update-pending");
-    },
-    updateChain() {
-      console.log("new transaction component");
-      this.$emit("update-chain");
+    mine() {
+      this.toggleLoading();
+      fetch("/mine")
+        .then(() => {
+          this.updateChain();
+          this.updatePendingTransactions();
+        })
+        .then(() => this.toggleLoading());
     },
     submit(sender, receiver, amount) {
       return axios
@@ -51,8 +52,14 @@ export default {
           console.log(error);
         });
     },
-    mine() {
-      fetch("/mine").then(() => this.updateChain());
+    toggleLoading() {
+      this.$emit("toggle-loading");
+    },
+    updateChain() {
+      this.$emit("update-chain");
+    },
+    updatePendingTransactions() {
+      this.$emit("update-pending");
     }
   }
 };

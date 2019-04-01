@@ -5,16 +5,20 @@
         <newTransaction
           v-on:update-pending="updatePendingTransactions"
           v-on:update-chain="updateChain"
+          v-on:toggle-loading="toggleLoading"
         />
-        <PendingTransaction :pendingTransactions="pendingTransactions"/>
-        <iframe
-          src="https://giphy.com/embed/IwSG1QKOwDjQk"
-          width="480"
-          height="480"
-          frameborder="0"
-          class="giphy-embed"
-          allowfullscreen
-        ></iframe>
+        <div v-if="loading" class="loading">
+          <iframe
+            src="https://giphy.com/embed/IwSG1QKOwDjQk"
+            width="200"
+            height="200"
+            opacity="0.75"
+            frameborder="0"
+            class="giphy-embed"
+            allowtransparency="true"
+          ></iframe>
+        </div>
+        <PendingTransaction v-if="!loading" :pendingTransactions="pendingTransactions"/>
       </v-flex>
       <v-flex xs12>
         <chain :chain="chain"/>
@@ -39,16 +43,20 @@ export default {
   },
   data: () => ({
     pendingTransactions: [],
-    chain: []
+    chain: [],
+    loading: false
   }),
   methods: {
+    toggleLoading() {
+      this.loading = !this.loading;
+      console.log(this.loading);
+    },
     updatePendingTransactions() {
       axios.get("/transactions").then(response => {
         this.pendingTransactions = response.data;
       });
     },
     updateChain() {
-      console.log("App component");
       fetch("/chain")
         .then(response => {
           return response.json();
@@ -67,4 +75,9 @@ export default {
 </script>
 
 <style>
+.loading {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 </style>
