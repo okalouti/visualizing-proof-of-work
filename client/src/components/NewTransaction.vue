@@ -33,6 +33,10 @@ export default {
     updatePendingTransactions() {
       this.$emit("update-pending");
     },
+    updateChain() {
+      console.log("new transaction component");
+      this.$emit("update-chain");
+    },
     submit(sender, receiver, amount) {
       return axios
         .post("/transactions/new", {
@@ -48,7 +52,7 @@ export default {
         });
     },
     mine() {
-      fetch("/mine").then(() => console.log("PROOF OF WORK DONE!"));
+      fetch("/mine").then(() => this.updateChain());
     }
   }
 };
