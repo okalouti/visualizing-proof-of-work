@@ -12,7 +12,7 @@ In the meantime, this is a simple interface to visualize how it works. Follow th
 At this point, the algorithm takes an object representing the block to be mined - consisting of:
 
 - A block ID that increments from the previous block
-- The (cryptographic hash)[https://en.wikipedia.org/wiki/Cryptographic_hash_function] of the previous block.
+- The [cryptographic hash](https://en.wikipedia.org/wiki/Cryptographic_hash_function) of the previous block.
 - The transactions that are pending.
 
 It will then start the process of finding a _proof_ (often referred to as a _nonce_) to add to this object, such that the hash of this object starts with four zeros. Once this proof is found, the new _block_ is added to the chain. The validity of the proof (once it is available) is easily verifiable.
